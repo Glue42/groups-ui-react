@@ -1,5 +1,8 @@
 import React from "react";
 
+type NonMethodKeys<T> = ({ [P in keyof T]: T[P] extends Function ? never : P })[keyof T];
+type NonMethods<T> = Pick<T, NonMethodKeys<T>>;
+
 export interface PortalProps {
 	parentElement: HTMLElement;
 	children?: React.ReactNode;
@@ -11,7 +14,7 @@ export interface ButtonProps {
 	visible: boolean;
 }
 
-export interface ToggleButtonProps extends  ButtonProps{
+export interface ToggleButtonProps extends ButtonProps {
 	isPressed: boolean;
 }
 
@@ -70,8 +73,17 @@ export interface GroupWrapperProps {
 	onCommitCaptionEditingRequested?: (targetType: TargetType, targetId: string) => void;
 	onHideCaptionEditorRequested?: (targetType: TargetType, targetId: string) => void;
 
-	onShowLoadingAnimationRequested?: (targetType: TargetType ,targetId: string) => void;
-	onHideLoadingAnimationRequested?: (targetType: TargetType ,targetId: string) => void;
+	onShowLoadingAnimationRequested?: (targetType: TargetType, targetId: string) => void;
+	onHideLoadingAnimationRequested?: (targetType: TargetType, targetId: string) => void;
+	styles?: {
+		tabs?: {
+			header?: StylesOptions;
+			moveArea?: StylesOptions;
+		},
+		frame?: {
+			element?: StylesOptions;
+		}
+	};
 }
 
 export interface CreateGroupCaptionBarRequestOptions extends CreateElementRequestOptions {
@@ -308,6 +320,10 @@ export interface ExternalLibraryFactory {
 	onCaptionEditorVisibleChanged(targetType: TargetType, targetId: string, visible: boolean): void;
 	onCaptionEditorBoundsChanged(targetType: TargetType, targetId: string, bounds: Bounds): void;
 	commitCaptionEditing(targetType: TargetType, targetId: string, text: string): void;
+
+	updateTabHeaderStyles(styles: StylesOptions): void;
+	updateTabMoveAreaStyles(styles: StylesOptions): void;
+	updateFrameStyles(styles: StylesOptions): void;
 }
 
 export interface WebGroupsManager {
@@ -329,4 +345,9 @@ export interface Size {
 export interface Bounds extends Size {
 	left: number;
 	top: number;
+}
+
+export interface StylesOptions {
+	css?: Partial<NonMethods<CSSStyleDeclaration>>;
+	classes?: string[]
 }

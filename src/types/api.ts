@@ -1,5 +1,5 @@
-import React from "react";
-import { Bounds, ButtonProps, ToggleButtonProps } from "./internal";
+import React, { CSSProperties } from "react";
+import { Bounds, ButtonProps, StylesOptions, ToggleButtonProps } from "./internal";
 import { CustomButtonProps } from "./defaultComponents";
 
 export interface ChannelProps {
@@ -153,6 +153,15 @@ export interface GroupProps {
             After?: React.ComponentType<AfterTabsProps>;
             Buttons?: React.ComponentType<TabHeaderButtonsProps>;
             Below?: React.ComponentType<BelowTabsProps>;
+        }
+    },
+    styles?: {
+        tabs?: {
+            header?: StylesOptions;
+            moveArea?: StylesOptions;
+        },
+        frame?: {
+            element?: StylesOptions;
         }
     }
 }

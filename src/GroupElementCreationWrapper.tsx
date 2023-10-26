@@ -8,7 +8,7 @@ import { CustomButtonProps } from "./types/defaultComponents";
 import webGroupsManager from "./webGroupsManager";
 import webGroupsStore from "./webGroupsStore";
 
-const GroupElementCreationWrapper: React.FC<GroupProps> = ({ components }) => {
+const GroupElementCreationWrapper: React.FC<GroupProps> = ({ components, styles }) => {
 
     const state = useSyncExternalStore<ElementCreationWrapperState>(webGroupsStore.subscribe, webGroupsStore.getSnapshot);
 
@@ -165,7 +165,7 @@ const GroupElementCreationWrapper: React.FC<GroupProps> = ({ components }) => {
 
             let customButtonsProps = new Array<CustomButtonProps>();
             if (options.customButtons) {
-                customButtonsProps = options.customButtons.map((cButton) => { 
+                customButtonsProps = options.customButtons.map((cButton) => {
                     return {
                         onClick: () => {
                             webGroupsManager.clickCustomButton(options.targetId, cButton.buttonId);
@@ -173,7 +173,9 @@ const GroupElementCreationWrapper: React.FC<GroupProps> = ({ components }) => {
                         visible: true,
                         imageData: cButton.imageData,
                         tooltip: cButton.tooltip,
-                        buttonId: cButton.buttonId}});
+                        buttonId: cButton.buttonId
+                    }
+                });
             }
 
             const showSelector = (bounds: Bounds) => {
@@ -465,7 +467,7 @@ const GroupElementCreationWrapper: React.FC<GroupProps> = ({ components }) => {
 
             let customButtonsProps = new Array<CustomButtonProps>();
             if (options.customButtons) {
-                customButtonsProps = options.customButtons.map((cButton) => { 
+                customButtonsProps = options.customButtons.map((cButton) => {
                     return {
                         onClick: () => {
                             webGroupsManager.clickCustomButton(options.targetId, cButton.buttonId);
@@ -473,9 +475,11 @@ const GroupElementCreationWrapper: React.FC<GroupProps> = ({ components }) => {
                         visible: true,
                         imageData: cButton.imageData,
                         tooltip: cButton.tooltip,
-                        buttonId: cButton.buttonId}});
+                        buttonId: cButton.buttonId
+                    }
+                });
             }
-           
+
             return <Portal key={options.targetId} parentElement={parentElement}><TabButtonsCustomElement {...options}
                 feedback={feedback}
                 sticky={sticky}
@@ -563,6 +567,7 @@ const GroupElementCreationWrapper: React.FC<GroupProps> = ({ components }) => {
             onHideCaptionEditorRequested={webGroupsStore.onHideCaptionEditorRequested}
             onShowLoadingAnimationRequested={webGroupsStore.onShowLoadingAnimationRequested}
             onHideLoadingAnimationRequested={webGroupsStore.onHideLoadingAnimationRequested}
+            styles={styles}
         />
     </>
 }

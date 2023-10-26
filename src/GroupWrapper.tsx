@@ -61,6 +61,23 @@ class GroupWrapper extends React.Component<GroupWrapperProps> {
         };
 
         webGroupsManager.init(undefined, componentFactory);
+        webGroupsManager.updateTabHeaderStyles(this.props.styles?.tabs?.header ?? {});
+        webGroupsManager.updateTabMoveAreaStyles(this.props.styles?.tabs?.moveArea ?? {});
+        webGroupsManager.updateFrameStyles(this.props.styles?.frame?.element ?? {});
+    }
+
+    componentDidUpdate(prevProps: Readonly<GroupWrapperProps>, prevState: Readonly<{}>, snapshot?: any): void {
+        if (this.props.styles?.tabs?.header !== prevProps.styles?.tabs?.header) {
+            webGroupsManager.updateTabHeaderStyles(this.props.styles?.tabs?.header ?? {});
+        }
+
+        if (this.props.styles?.tabs?.moveArea !== prevProps.styles?.tabs?.moveArea) {
+            webGroupsManager.updateTabMoveAreaStyles(this.props.styles?.tabs?.moveArea ?? {});
+        }
+
+        if (this.props.styles?.frame?.element !== prevProps.styles?.frame?.element) {
+            webGroupsManager.updateFrameStyles(this.props.styles?.frame?.element ?? {});
+        }
     }
 
     componentWillUnmount() {

@@ -1,4 +1,4 @@
-import { Bounds, StandardButtons, TargetType, WebGroupsManager } from "./types/internal";
+import { Bounds, GroupWrapperProps, StandardButtons, StylesOptions, TargetType, WebGroupsManager } from "./types/internal";
 import callbackRegistry from "callback-registry";
 
 declare const window: Window & { webGroupsManager: WebGroupsManager };
@@ -79,11 +79,11 @@ class WebGroupsManagerDecorator {
         window.webGroupsManager.externalLibraryFactory.onStandardButtonClick(TargetType.Frame, targetId, StandardButtons.Unlock);
     }
 
-    public feedbackFrame(targetId: string):void{
+    public feedbackFrame(targetId: string): void {
         window.webGroupsManager.externalLibraryFactory.onStandardButtonClick(TargetType.Frame, targetId, StandardButtons.Feedback);
     }
 
-    public stickyFrame(targetId: string):void{
+    public stickyFrame(targetId: string): void {
         window.webGroupsManager.externalLibraryFactory.onStandardButtonClick(TargetType.Frame, targetId, StandardButtons.Sticky);
     }
 
@@ -201,6 +201,18 @@ class WebGroupsManagerDecorator {
 
     public requestCommitCaptionEditing(targetType: TargetType, targetId: string) {
         this.registry.execute(`${targetType}-${targetId}`);
+    }
+
+    public updateTabHeaderStyles(styles: StylesOptions) {
+        window.webGroupsManager.externalLibraryFactory.updateTabHeaderStyles(styles);
+    }
+
+    public updateTabMoveAreaStyles(styles: StylesOptions) {
+        window.webGroupsManager.externalLibraryFactory.updateTabMoveAreaStyles(styles);
+    }
+
+    public updateFrameStyles(styles: StylesOptions) {
+        window.webGroupsManager.externalLibraryFactory.updateFrameStyles(styles);
     }
 }
 
